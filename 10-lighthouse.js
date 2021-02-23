@@ -33,7 +33,7 @@ const { playAudit } = require('playwright-lighthouse');
         html: true, //defaults to false
         csv: false, //defaults to false
       },
-      name: `lighthouse-${new Date().getDate()}-${new Date().getTime()}`, //defaults to `lighthouse-${new Date().getTime()}`
+      name: `lighthouse-${new Date().getTime()}`, //defaults to `lighthouse-${new Date().getTime()}`
       directory:  `${process.cwd()}/lighthouse-${new Date().getDate()}`, //defaults to `${process.cwd()}/lighthouse`
     },
   });

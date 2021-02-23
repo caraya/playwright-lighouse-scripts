@@ -1,5 +1,6 @@
 const playwright = require('playwright-core');
 const { playAudit } = require('playwright-lighthouse');
+const fs = require('fs');
 
 (async () => {
 
@@ -34,7 +35,7 @@ const { playAudit } = require('playwright-lighthouse');
         csv: false, //defaults to false
       },
       name: `lighthouse-${new Date().getTime()}`, //defaults to `lighthouse-${new Date().getTime()}`
-      directory:  `${process.cwd()}/lighthouse-${new Date().getDate()}`, //defaults to `${process.cwd()}/lighthouse`
+      directory:  `${process.cwd()}/lighthouse-${new Date()}-${new Date().getTime()}`, //defaults to `${process.cwd()}/lighthouse`
     },
   });
 
@@ -68,22 +69,24 @@ const { playAudit } = require('playwright-lighthouse');
   // console.log(`First contentful paint: ${firstContentfulPaint[0].startTime}`);
   
   const data = [
-    pt,
+    "\n" + "Data we got from navigator.performance.timing" + "\n",
+    JSON.stringify(pt, null, '\t'),
+    "\n" + "Data we calculated from navigator.performance.timing" + "\n",
     "Navigation start to DOM Interactive: " + startToInteractive + "ms",
     "Navigation start to DOM ContentLoaded " + domContentLoadedComplete + "ms",
     "Navigation start to DOM Complete:  " + startToComplete + "ms",
-    
+    "\n" + "Data we got from performance.getEntriesByName" + "\n",
     "First paint: " + firstPaint[0].startTime,
     "First contentful paint: " + firstContentfulPaint[0].startTime,
   ]
 
-  dataToAppend = JSON.stringify(data);
+  dataToAppend = (data.join('\n'));
 
-  fs.appendFile('chrome-performance.txt', dataToAppend, function (err) {
+  fs.appendFile(`chrome-performance-${new Date()}.txt`, dataToAppend, function (err) {
     if (err) {
       throw err;
     } else {
-      console.log('Saved!');
+      console.log('Performance data saved to file');
     }
   });
 
