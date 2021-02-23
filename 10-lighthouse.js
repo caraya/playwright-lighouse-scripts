@@ -2,12 +2,6 @@ const playwright = require('playwright-core');
 const { playAudit } = require('playwright-lighthouse');
 
 (async () => {
-  /* 
-    This requires you to start chrome from the command line
-    with the remote-debugging-port flag set before you run the script
-    The flag looks something like this:
-    /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --remote-debugging-port=9222
-  */
 
   // Set the executable to Chrome stable
   const chrome = await playwright.chromium.launch({
@@ -39,8 +33,8 @@ const { playAudit } = require('playwright-lighthouse');
         html: true, //defaults to false
         csv: false, //defaults to false
       },
-      name: `lighthouse-${new Date().getTime()}`, //defaults to `lighthouse-${new Date().getTime()}`
-      directory:  `${process.cwd()}/lighthouse-${new Date()}`, //defaults to `${process.cwd()}/lighthouse`
+      name: `lighthouse-${new Date().getDate()}-${new Date().getTime()}`, //defaults to `lighthouse-${new Date().getTime()}`
+      directory:  `${process.cwd()}/lighthouse-${new Date().getDate()}`, //defaults to `${process.cwd()}/lighthouse`
     },
   });
 
